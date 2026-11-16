@@ -1,0 +1,198 @@
+<title>Riviera Refit Nuit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Karla:wght@400;500;600&display=swap">
+<style>
+/* Layout: deliberately single dark theme — Mediterranean night navy, logo gold as the one accent; full-bleed photography with an Avant/Après switch in the hero */
+:root{
+  --night:#0a1328; --deep:#0f1b36; --ivory:#efe9dd; --soft:#a9b0c0; --gold:#c8a96a; --line:#26324f;
+  --display:"Bodoni Moda", "Didot", Georgia, serif;
+  --body:"Karla", "Helvetica Neue", Arial, sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--night);color:var(--ivory);font:400 17px/1.65 var(--body);margin:0}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;line-height:1.05}
+h1{font-size:clamp(2.6rem,6.4vw,5.4rem)}
+h1 em,h2 em{color:var(--gold)}
+h2{font-size:clamp(2rem,4vw,3.3rem)}
+h3{font:600 1rem/1.3 var(--body);margin:0;letter-spacing:.02em}
+p{margin:0;max-width:60ch}
+.ey{font:600 .7rem/1 var(--body);letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+.soft{color:var(--soft)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+header.bar{position:absolute;inset:0 0 auto;z-index:5;padding-top:env(safe-area-inset-top,0px)}
+header.bar .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding-block:22px}
+.logo{font:500 1.15rem/1 var(--display);letter-spacing:.24em}
+.logo small{display:block;font:500 .58rem/1.6 var(--body);letter-spacing:.22em;color:var(--gold)}
+header.bar a.cta{color:var(--ivory);text-decoration:none;font:600 .74rem/1 var(--body);letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--gold);padding:11px 16px}
+header.bar a.cta:hover{background:var(--gold);color:var(--night)}
+
+.hero{position:relative;min-height:min(92vh,780px);display:flex;align-items:flex-end;overflow:hidden}
+.hero .img{position:absolute;inset:0}
+.hero .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .9s ease}
+.hero .img img.off{opacity:0}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,19,40,.7) 0%,rgba(10,19,40,.1) 35%,rgba(10,19,40,.35) 60%,var(--night) 100%)}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-block:0 56px;display:grid;gap:22px}
+.switch{display:inline-flex;border:1px solid var(--gold);width:max-content}
+.switch button{background:transparent;color:var(--ivory);border:0;padding:10px 22px;font:600 .72rem/1 var(--body);letter-spacing:.26em;cursor:pointer}
+.switch button[aria-pressed="true"]{background:var(--gold);color:var(--night)}
+.hero p{font-size:1.15rem;color:var(--ivory)}
+
+section{padding-block:clamp(64px,9vw,110px)}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.intro > *{min-width:0}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pair figure{margin:0;position:relative}
+.pair img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+.pair figcaption{position:absolute;left:10px;bottom:10px;font:600 .62rem/1 var(--body);letter-spacing:.24em;background:var(--night);color:var(--gold);padding:6px 8px}
+
+.band{background:var(--deep);border-block:1px solid var(--line)}
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;border-top:1px solid var(--line)}
+.svc div{padding:26px 22px 8px 0;display:grid;gap:8px;align-content:start}
+.svc div + div{padding-left:22px;border-left:1px solid var(--line)}
+.svc p{font-size:.94rem;color:var(--soft)}
+.wideimg{margin-top:44px}
+.wideimg img{width:100%;aspect-ratio:21/7;object-fit:cover;display:block}
+
+.mat{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+.mat > *{min-width:0}
+.mat .imgs{display:grid;grid-template-columns:1fr 1.3fr;gap:12px}
+.mat .imgs img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:2/3}
+.mat ul{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.mat li{padding-left:22px;position:relative;color:var(--soft)}
+.mat li::before{content:"";position:absolute;left:0;top:.75em;width:12px;height:1px;background:var(--gold)}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;counter-reset:s}
+.steps li{list-style:none;border:1px solid var(--line);padding:26px;display:grid;gap:8px;align-content:start}
+.steps .n{font:400 3rem/1 var(--display);color:var(--gold)}
+.steps p{color:var(--soft);font-size:.95rem}
+ol.steps{padding:0;margin-bottom:0}
+
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.contact > *{min-width:0}
+.person{border-left:1px solid var(--gold);padding-left:22px;display:grid;gap:4px;margin-top:28px}
+.person .nm{font:400 1.7rem/1.2 var(--display)}
+.tel{font-variant-numeric:tabular-nums}
+form{display:grid;gap:14px;background:var(--deep);padding:28px;border:1px solid var(--line)}
+label{font:600 .68rem/1 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
+input,select,textarea{width:100%;font:inherit;color:var(--ivory);background:var(--night);border:1px solid var(--line);padding:11px 12px}
+textarea{min-height:90px;resize:vertical}
+.send{background:var(--gold);color:var(--night);border:0;padding:14px;font:600 .78rem/1 var(--body);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.ok{color:var(--gold)}
+footer{border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding-block:26px;font-size:.82rem;color:var(--soft)}
+
+@media (max-width:860px){
+  .intro,.mat,.contact{grid-template-columns:1fr}
+  .svc{grid-template-columns:1fr 1fr}
+  .svc div:nth-child(3){padding-left:0;border-left:0}
+  .steps{grid-template-columns:1fr}
+  .hero{min-height:620px}
+}
+@media (max-width:520px){.svc{grid-template-columns:1fr}.svc div + div{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+@media (prefers-reduced-motion:reduce){.hero .img img{transition:none}}
+</style>
+
+<header class="bar"><div class="wrap">
+  <div class="logo">RIVIERA REFIT<small>ITALIAN KITCHEN REFIT · MONACO</small></div>
+  <a class="cta" href="#contact">Premier regard</a>
+</div></header>
+
+<div class="hero">
+  <div class="img">
+    <img id="iAv" class="off" src="img/avant.jpg" alt="La cuisine avant : bois sombre et granit">
+    <img id="iAp" src="img/apres.jpg" alt="La cuisine après : laque blanche, marbre et inox face à la mer">
+  </div>
+  <div class="wrap">
+    <div class="switch" role="group" aria-label="Avant ou après">
+      <button id="bAv" aria-pressed="false">AVANT</button>
+      <button id="bAp" aria-pressed="true">APRÈS</button>
+    </div>
+    <h1>Une cuisine qui<br>retrouve sa <em>lumière.</em></h1>
+    <p>Relooking de cuisine, sans travaux lourds, avec grande rapidité.</p>
+  </div>
+</div>
+
+<section><div class="wrap intro">
+  <div style="display:grid;gap:18px">
+    <span class="ey">Le même horizon</span>
+    <h2>Une cuisine qui se ressent <em>avant</em> de se voir</h2>
+    <p class="soft">Le même horizon sur la mer, une atmosphère d'exception. La vue reste, la cuisine change.</p>
+  </div>
+  <div class="pair">
+    <figure><img src="img/cuisine-mer-1.jpg" alt="Cuisine en bois face à la mer"><figcaption>AVANT</figcaption></figure>
+    <figure><img src="img/arche.jpg" alt="Cuisine blanche sous une fenêtre en arche"><figcaption>APRÈS</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <span class="ey">Relooking et technique, en harmonie</span>
+  <h2 style="margin-top:16px">Une seule main pour toute la cuisine</h2>
+  <div class="svc">
+    <div><h3>Plans de travail et crédence</h3><p>Plans et crédence pensés comme une seule surface, avec une finition raffinée.</p></div>
+    <div><h3>Une esthétique maîtrisée</h3><p>Lignes épurées et matières nobles, dans une écriture d'une grande cohérence.</p></div>
+    <div><h3>Les électroménagers</h3><p>Intégrés avec discrétion, au service de vos gestes du quotidien.</p></div>
+    <div><h3>La partie technique</h3><p>Tiroirs, éclairage et aménagements, pensés pour un confort fluide.</p></div>
+  </div>
+  <div class="wideimg"><img src="img/plan-travail.jpg" alt="Plan de travail en marbre et vue sur la ville"></div>
+</div></section>
+
+<section><div class="wrap mat">
+  <div>
+    <span class="ey">Matières et savoir-faire italien</span>
+    <h2 style="margin-top:16px">L'exigence de la matière, le geste de l'<em>artisan</em></h2>
+    <p class="soft" style="margin-top:16px">Marbre, pierres naturelles, essences de bois, métaux nobles et finitions choisies une à une.</p>
+    <ul><li>Idées raffinées, pensées pour votre cuisine</li><li>Artisanat italien, du dessin à la pose</li><li>Précision de chaque exécution</li></ul>
+  </div>
+  <div class="imgs">
+    <img src="img/marbre.jpg" alt="Îlot en marbre veiné sous des suspensions">
+    <img src="img/fours.jpg" alt="Fours encastrés et crédence en marbre">
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <span class="ey">Le premier regard</span>
+  <h2 style="margin-top:16px">Un premier regard, sans engagement</h2>
+  <p class="soft" style="margin-top:14px">Une lecture attentive de votre cuisine, en toute discrétion.</p>
+  <ol class="steps">
+    <li><span class="n">1</span><h3>Visite à 360° de la cuisine</h3><p>Sans vous déranger, à ce stade.</p></li>
+    <li><span class="n">2</span><h3>Carnet d'envies</h3><p>Votre style, vos gestes, vos priorités.</p></li>
+    <li><span class="n">3</span><h3>Évaluation</h3><p>Une estimation, puis une visite sur place.</p></li>
+  </ol>
+</div></section>
+
+<section id="contact"><div class="wrap contact">
+  <div>
+    <span class="ey">Un accompagnement sur mesure</span>
+    <h2 style="margin-top:16px">Une première rencontre, en toute discrétion</h2>
+    <p class="soft" style="margin-top:16px">Avec votre interlocutrice privilégiée. Puis nos techniciens et architectes prennent le relais, de la conception à la livraison.</p>
+    <div class="person">
+      <span class="ey">Private Client Relations</span>
+      <span class="nm">Iva Santagada Caleca</span>
+      <span>i.santagada@rivierarefit.com</span>
+      <span class="tel soft">FR +33 7 72 00 94 69 · IT +39 339 573 8457</span>
+      <span class="soft">Monaco · Italie · France · Suisse</span>
+    </div>
+  </div>
+  <form id="f">
+    <label for="nm">Nom</label><input id="nm" required>
+    <label for="ct">E-mail ou téléphone</label><input id="ct" required>
+    <label for="lieu">Lieu</label>
+    <select id="lieu"><option>Monaco</option><option>France</option><option>Italie</option><option>Suisse</option></select>
+    <label for="ms">Votre cuisine en quelques mots</label><textarea id="ms"></textarea>
+    <button class="send" type="submit">Demander un premier regard</button>
+    <p class="ok" id="ok" hidden>Aperçu : dans le site final, la demande serait transmise à Iva Santagada Caleca.</p>
+  </form>
+</div></section>
+
+<footer><div class="wrap"><span>© Riviera Refit · Monaco</span><span>Confidentialité et discrétion, dès le premier regard</span></div></footer>
+
+<script>
+const iAv=document.getElementById('iAv'),iAp=document.getElementById('iAp'),bAv=document.getElementById('bAv'),bAp=document.getElementById('bAp');
+function show(after){iAp.classList.toggle('off',!after);iAv.classList.toggle('off',after);bAp.setAttribute('aria-pressed',after);bAv.setAttribute('aria-pressed',!after)}
+bAv.onclick=()=>show(false);bAp.onclick=()=>show(true);
+document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();document.getElementById('ok').hidden=false});
+</script>

@@ -1,0 +1,192 @@
+<title>Riviera Refit Leporello</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: the site IS the leporello — six square panels in one horizontal strip with shaded folds (desktop); on phones the strip unfolds into a vertical stack */
+:root{
+  --table:#e4e1d9; --panel:#f3f1ec; --ink:#20242c; --muted:#62666f; --navy:#12306b; --line:#cfcbc1; --fold:rgba(30,25,15,.13);
+  --display:"Gloock", "Didot", Georgia, serif;
+  --body:"Figtree", "Segoe UI", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--table:#171a20;--panel:#21252d;--ink:#ecebe7;--muted:#a6abb5;--navy:#a9bff0;--line:#383e4a;--fold:rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{--table:#171a20;--panel:#21252d;--ink:#ecebe7;--muted:#a6abb5;--navy:#a9bff0;--line:#383e4a;--fold:rgba(0,0,0,.4);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--table);color:var(--ink);font:400 16px/1.6 var(--body);margin:0}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-block:20px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1400px;margin:0 auto}
+.top .brand{font:400 1.35rem/1 var(--display);letter-spacing:.1em;color:var(--navy)}
+.top .brand small{display:block;font:500 .62rem/1.4 var(--body);letter-spacing:.2em;color:var(--muted)}
+.ctrl{display:flex;align-items:center;gap:10px}
+.ctrl button{width:40px;height:40px;border:1px solid var(--navy);background:transparent;color:var(--navy);font:600 1.1rem/1 var(--body);cursor:pointer}
+.ctrl button:hover{background:var(--navy);color:var(--panel)}
+.dots{display:flex;gap:6px}
+.dots button{width:28px;height:28px;border:0;background:transparent;color:var(--muted);font:600 .8rem/1 var(--body);cursor:pointer;border-bottom:2px solid transparent}
+.dots button[aria-current="true"]{color:var(--navy);border-bottom-color:var(--navy)}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+
+.strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-block:10px 34px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));scrollbar-width:thin}
+.panel{--s:min(78vh,620px);flex:0 0 var(--s);height:var(--s);scroll-snap-align:center;background:var(--panel);position:relative;padding:22px;display:flex;flex-direction:column;box-shadow:0 18px 30px -18px rgba(0,0,0,.35)}
+.panel::before{content:"";position:absolute;inset:12px;border:1px solid var(--navy);pointer-events:none;opacity:.7}
+/* fold shading: odd panels darken toward their right edge (valley), even panels toward their left (mountain) */
+.panel:nth-child(odd)::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 70%,var(--fold));pointer-events:none}
+.panel:nth-child(even)::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--fold),transparent 30%);pointer-events:none}
+.pn{position:absolute;right:26px;bottom:20px;font:500 .72rem/1 var(--body);letter-spacing:.2em;color:var(--muted);z-index:2}
+.panel > :not(.pn){position:relative;z-index:1}
+h1,h2{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;line-height:1.08}
+h1{font-size:clamp(1.6rem,3.4vh,2.1rem)}
+h2{font-size:clamp(1.3rem,2.9vh,1.75rem)}
+h3{font:600 .95rem/1.3 var(--body);margin:0}
+p{margin:0}
+.ey{font:600 .62rem/1.3 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--navy)}
+.small{font-size:.86rem;color:var(--muted)}
+.inside{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1;min-height:0}
+
+/* panel 1 – cover */
+.cover .photo{margin:-22px -22px 0;position:relative;flex:0 0 56%}
+.cover .photo img{width:100%;height:100%;object-fit:cover;display:block}
+.cover .photo .t{position:absolute;inset:auto 12px 10px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cover .photo .t span{background:rgba(244,242,236,.88);color:#20242c;font:600 .58rem/1 var(--body);letter-spacing:.26em;text-align:center;padding:6px}
+.cover .inside{align-items:center;text-align:center;justify-content:center}
+.cover .logo{width:92px;border:1px solid var(--line)}
+/* grids */
+.g4{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;min-height:0}
+.g4 img{width:100%;height:100%;object-fit:cover;display:block;min-height:0}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px 18px}
+.duo div{display:grid;gap:3px;align-content:start}
+.duo p{font-size:.8rem;color:var(--muted);line-height:1.45}
+.ph{width:100%;object-fit:cover;display:block;flex:1;min-height:0}
+.split{display:grid;grid-template-columns:1fr .7fr;gap:12px;flex:1;min-height:0}
+.split img{width:100%;height:100%;object-fit:cover;display:block}
+.p4 .marble{margin:-22px -22px -22px 0}
+ul.l{margin:0;padding-left:1em;font-size:.82rem;color:var(--muted)}
+ol.st{list-style:none;margin:0;padding:0;display:grid;gap:0}
+ol.st li{display:grid;grid-template-columns:34px 1fr;gap:2px 10px;padding:12px 0;border-top:1px solid var(--line)}
+ol.st li:last-child{border-bottom:1px solid var(--line)}
+ol.st .n{grid-row:span 2;font:400 1.5rem/1 var(--display);color:var(--navy)}
+form{display:grid;gap:8px}
+input{font:inherit;font-size:.86rem;width:100%;padding:8px 10px;border:1px solid var(--line);background:var(--table);color:var(--ink)}
+.go{background:var(--navy);color:var(--panel);border:0;padding:10px;font:600 .74rem/1 var(--body);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.contact{font-size:.82rem;line-height:1.5}
+.contact b{color:var(--navy)}
+.hint{text-align:center;font-size:.78rem;color:var(--muted);padding-bottom:24px;padding-left:16px;padding-right:16px}
+
+@media (max-width:760px){
+  .strip{flex-direction:column;overflow:visible;scroll-snap-type:none;gap:0;align-items:center}
+  .panel{--s:auto;flex:none;width:100%;max-width:520px;height:auto;aspect-ratio:auto;min-height:0}
+  .panel:nth-child(odd)::after{background:linear-gradient(180deg,transparent 80%,var(--fold))}
+  .panel:nth-child(even)::after{background:linear-gradient(180deg,var(--fold),transparent 20%)}
+  .cover .photo{aspect-ratio:2/1.3}
+  .g4{aspect-ratio:4/3}
+  .ph{aspect-ratio:16/8}
+  .split{aspect-ratio:4/3}
+  .ctrl{display:none}
+  .hint{display:none}
+}
+@media (prefers-reduced-motion:no-preference){.strip{scroll-behavior:smooth}}
+</style>
+
+<div class="top">
+  <div class="brand">RIVIERA REFIT<small>ITALIAN KITCHEN REFIT · MONACO</small></div>
+  <div class="ctrl">
+    <button id="prev" aria-label="Pagina precedente">‹</button>
+    <div class="dots" id="dots"></div>
+    <button id="next" aria-label="Pagina successiva">›</button>
+  </div>
+</div>
+
+<main class="strip" id="strip">
+  <article class="panel cover" aria-label="Page 1">
+    <div class="photo"><img src="img/avant-apres.jpg" alt="Cuisine face à la mer, avant et après"><div class="t"><span>AVANT</span><span>APRÈS</span></div></div>
+    <div class="inside">
+      <img class="logo" src="img/logo.jpg" alt="Logo Riviera Refit">
+      <h1>Une cuisine qui retrouve sa lumière.</h1>
+      <p class="small">Relooking de cuisine, sans travaux lourds, avec grande rapidité.</p>
+    </div>
+    <span class="pn">1 / 6</span>
+  </article>
+
+  <article class="panel" aria-label="Page 2">
+    <div class="inside">
+      <h2>Une cuisine qui se ressent avant de se voir</h2>
+      <p class="small">Le même horizon sur la mer, une atmosphère d'exception.</p>
+      <div class="g4">
+        <img src="img/cuisine-mer-1.jpg" alt="Avant : cuisine en bois face à la mer">
+        <img src="img/cuisine-mer-2.jpg" alt="Après : cuisine blanche face à la mer">
+        <img src="img/avant-2.jpg" alt="Avant : cuisine sombre">
+        <img src="img/arche.jpg" alt="Après : cuisine blanche sous l'arche">
+      </div>
+    </div>
+    <span class="pn">2 / 6</span>
+  </article>
+
+  <article class="panel" aria-label="Page 3">
+    <div class="inside">
+      <span class="ey">Relooking et technique, en harmonie</span>
+      <h2>Une seule main pour toute la cuisine</h2>
+      <img class="ph" src="img/plan-travail.jpg" alt="Plan de travail en marbre devant la baie vitrée">
+      <div class="duo">
+        <div><h3>Plans de travail et crédence</h3><p>Plans et crédence pensés comme une seule surface, avec une finition raffinée.</p></div>
+        <div><h3>Une esthétique maîtrisée</h3><p>Lignes épurées et matières nobles, dans une écriture d'une grande cohérence.</p></div>
+        <div><h3>Les électroménagers</h3><p>Intégrés avec discrétion, au service de vos gestes du quotidien.</p></div>
+        <div><h3>La partie technique</h3><p>Tiroirs, éclairage et aménagements, pensés pour un confort fluide.</p></div>
+      </div>
+    </div>
+    <span class="pn">3 / 6</span>
+  </article>
+
+  <article class="panel p4" aria-label="Page 4">
+    <div class="split">
+      <div class="inside" style="padding-right:0">
+        <span class="ey">Matières et savoir-faire italien</span>
+        <h2>L'exigence de la matière, le geste de l'artisan</h2>
+        <p class="small">Marbre, pierres naturelles, essences de bois, métaux nobles et finitions choisies une à une.</p>
+        <ul class="l"><li>Idées raffinées, pensées pour votre cuisine</li><li>Artisanat italien, du dessin à la pose</li><li>Précision de chaque exécution</li></ul>
+        <img class="ph" src="img/salon.jpg" alt="Intérieur lumineux en enfilade">
+      </div>
+      <img class="marble" src="img/marbre.jpg" alt="Îlot en marbre veiné">
+    </div>
+    <span class="pn">4 / 6</span>
+  </article>
+
+  <article class="panel" aria-label="Page 5" id="premier-regard">
+    <div class="inside">
+      <span class="ey">Le premier regard</span>
+      <h2>Un premier regard, sans engagement</h2>
+      <p class="small">Une lecture attentive de votre cuisine, en toute discrétion.</p>
+      <ol class="st">
+        <li><span class="n">1</span><h3>Visite à 360° de la cuisine</h3><span class="small">Sans vous déranger, à ce stade.</span></li>
+        <li><span class="n">2</span><h3>Carnet d'envies</h3><span class="small">Votre style, vos gestes, vos priorités.</span></li>
+        <li><span class="n">3</span><h3>Évaluation</h3><span class="small">Une estimation, puis une visite sur place.</span></li>
+      </ol>
+      <p class="small" style="margin-top:auto;font-style:italic">Confidentialité et discrétion, dès le premier regard.</p>
+    </div>
+    <span class="pn">5 / 6</span>
+  </article>
+
+  <article class="panel" aria-label="Page 6">
+    <div class="inside">
+      <h2>Un accompagnement sur mesure</h2>
+      <img class="ph" src="img/vue-monaco.jpg" alt="Cuisine avec vue sur Monaco">
+      <p class="small">Une première rencontre, en toute discrétion, avec votre interlocutrice privilégiée. Puis nos techniciens et architectes prennent le relais, de la conception à la livraison.</p>
+      <div class="contact"><b>Iva Santagada Caleca</b> · Private Client Relations<br>i.santagada@rivierarefit.com<br>FR +33 7 72 00 94 69 · IT +39 339 573 8457</div>
+      <form id="f"><input id="c" placeholder="Votre e-mail ou téléphone" aria-label="Votre e-mail ou téléphone" required><button class="go" type="submit">Être recontacté</button><span class="small" id="ok" hidden>Aperçu : la demande serait transmise à Iva.</span></form>
+    </div>
+    <span class="pn">6 / 6</span>
+  </article>
+</main>
+<p class="hint">Scorri lateralmente o usa le frecce: il sito si sfoglia come la brochure a fisarmonica.</p>
+
+<script>
+const strip=document.getElementById('strip'),panels=[...strip.children],dots=document.getElementById('dots');
+panels.forEach((p,i)=>{const b=document.createElement('button');b.textContent=i+1;b.setAttribute('aria-label','Pagina '+(i+1));b.onclick=()=>go(i);dots.append(b)});
+let cur=0;
+function go(i){cur=Math.max(0,Math.min(panels.length-1,i));const p=panels[cur];strip.scrollTo({left:p.offsetLeft-(strip.clientWidth-p.clientWidth)/2});mark()}
+function mark(){[...dots.children].forEach((d,i)=>d.setAttribute('aria-current',i===cur))}
+strip.addEventListener('scroll',()=>{const c=strip.scrollLeft+strip.clientWidth/2;let best=0,bd=1e9;panels.forEach((p,i)=>{const d=Math.abs(p.offsetLeft+p.clientWidth/2-c);if(d<bd){bd=d;best=i}});if(best!==cur){cur=best;mark()}},{passive:true});
+document.getElementById('prev').onclick=()=>go(cur-1);
+document.getElementById('next').onclick=()=>go(cur+1);
+document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
+document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();document.getElementById('ok').hidden=false});
+mark();
+</script>
